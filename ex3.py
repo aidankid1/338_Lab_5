@@ -7,7 +7,7 @@ class ArrayStack:
         self.arr = arr
 
     def push(self, data):
-        self.arr.insert(len(self.arr) - 1, data)
+        self.arr.append(data)
 
     def pop(self):
         if len(self.arr) == 0:
@@ -19,15 +19,20 @@ class Node:
     def __init__(self, data):
         self.data = data
         self.next = None
+
     def getData(self):
         return self.data
+    
     def setData(self, value):
         self.data = value
+
     def getNext(self):
         return self.next
+    
     def setNext(self, next):
         self.next = next
 
+#Linked List Stack Implementation
 class LinkedListStack:
     def __init__(self, value):
         if value == None:
@@ -36,6 +41,7 @@ class LinkedListStack:
         else:
             self.head = Node(value)
             self.tail = self.head
+
     def enqueue(self,data):
         newNode = Node(data)
         if self.head == None:
@@ -45,21 +51,23 @@ class LinkedListStack:
         else:
             newNode.setNext(self.head)
             self.head = newNode
+
     def dequeue(self):
         current = self.head
         if current == None:
             return None
+        
         if current.getNext() == None:
             returnValue = current.getData()
             self.head = None
             self.tail = None
         else:
-
             while current.getNext() != self.tail:
                 current = current.getNext()
             returnValue = self.tail.getData()
             current.setNext(None)
             self.tail = current
+
         return returnValue
 
 def performanceTestSort(randomTasks):

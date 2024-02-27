@@ -7,7 +7,7 @@ class SortPriorityQueue:
         self.arr = arr
 
     def enqueue(self, data):
-        self.arr.insert(len(self.arr) - 1, data)
+        self.arr.append(data)
         mergeSort(self.arr, 0, len(self.arr) - 1)
 
     def dequeue(self):
