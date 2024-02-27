@@ -15,7 +15,7 @@ class SortPriorityQueue:
         if(len(self.arr) == 0):
             return None
         
-        return self.arr.pop()
+        return self.arr.pop(0)
     
     def myPrint(self):
         print(self.arr)
@@ -42,7 +42,7 @@ class InsertPriorityQueue:
         if(len(self.arr) == 0):
             return None
         
-        return self.arr.pop()
+        return self.arr.pop(0)
     
     def myPrint(self):
         print(self.arr)
@@ -91,7 +91,7 @@ def generateRandomTasks():
     tasks = [0] * 7 + [1] * 3
     randomTasks = []
 
-    for _ in range(1000):
+    for _ in range(NUM_OF_TASKS):
         index = random.randint(0, 9)
         randomTasks.append(tasks[index])
 
