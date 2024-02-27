@@ -27,7 +27,6 @@ import sys
 def arithmetic(expression): 
 
 
-
 '''push
 top+=1
 array[top]=element value
