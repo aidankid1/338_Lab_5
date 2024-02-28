@@ -114,4 +114,8 @@ for i in range(ITERATIONS):
     arrayStackTime.append()
     linkedListStackTime.append()
 
-#5)
+#5) Scatter Plot for both array and linked list stacks overlayed in same plot
+plt.scatter([i + 1 for i in range(ITERATIONS)], arrayStackTime, label='Array')
+plt.scatter([i + 1 for i in range(ITERATIONS)], linkedListStackTime, label='Singly Linked List')
+plt.legend()
+plt.show()
