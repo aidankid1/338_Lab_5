@@ -1,38 +1,23 @@
 import random
 import timeit
 from matplotlib import pyplot as plt
-#Class for a Stack using Arrays
+#1) Stack Class using Arrays
 class ArrayStack:
     def __init__(self, arr):
         self.arr = arr
 
+    #Appends an element to the tail
     def push(self, data):
         self.arr.append(data)
 
+    #Removes an element from the tail
     def pop(self):
         if len(self.arr) == 0:
             return None
         else:
             return self.arr.pop()
         
-class Node:
-    def __init__(self, data):
-        self.data = data
-        self.next = None
-
-    def getData(self):
-        return self.data
-    
-    def setData(self, value):
-        self.data = value
-
-    def getNext(self):
-        return self.next
-    
-    def setNext(self, next):
-        self.next = next
-
-#Linked List Stack Implementation
+#2) Another Stack Class Implementation using a singly Linked List
 class LinkedListStack:
     def __init__(self, value):
         if value == None:
@@ -42,7 +27,7 @@ class LinkedListStack:
             self.head = Node(value)
             self.tail = self.head
 
-    def enqueue(self,data):
+    def push(self, data):
         newNode = Node(data)
         if self.head == None:
             newNode.setNext(self.head)
@@ -69,6 +54,22 @@ class LinkedListStack:
             self.tail = current
 
         return returnValue
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+    def getData(self):
+        return self.data
+    
+    def setData(self, value):
+        self.data = value
+
+    def getNext(self):
+        return self.next
+    
+    def setNext(self, next):
+        self.next = next
 
 def performanceTestSort(randomTasks):
     sortQueue = ArrayStack([])
