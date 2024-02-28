@@ -123,7 +123,7 @@ ITERATIONS = 100
 sortingQueueTime = []
 insertingQueueTime = []
 
-#Doesn't use repeat cause we don't want to consider the amount of time it takes to generate the random tasks
+#Timing Performance for each iteration
 for i in range(ITERATIONS):
     randomTasks = generateRandomTasks()
     sortingQueueTime.append(timeit.timeit(lambda: performanceTestSort(randomTasks), number=1))
@@ -138,7 +138,10 @@ print(insertingQueueTime)
 #Shows a scatter plot for better visualization of the performance doing random tasks
 plt.scatter([i + 1 for i in range(ITERATIONS)], sortingQueueTime, label='Sort Queue')
 plt.scatter([i + 1 for i in range(ITERATIONS)], insertingQueueTime, label='Insert Queue')
-plt.legend()
+plt.title(label='Timing for Queues with 1000 random Tasks (Append & Sort vs Insert In Correct Spot)')
+plt.xlabel('Iteration')
+plt.ylabel('Time (s)')
+plt.legend(loc='upper left')
 plt.show()
 
 #5) Clearly, inserting a new element to the correct position is way faster than sorting the whole queue after appending the element to the end
