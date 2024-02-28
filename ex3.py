@@ -3,6 +3,7 @@ import timeit
 from matplotlib import pyplot as plt
 #1) Stack Class using Arrays
 class ArrayStack:
+    #Constructor
     def __init__(self, arr):
         self.arr = arr
 
@@ -54,6 +55,8 @@ class LinkedListStack:
             self.tail = current
 
         return returnValue
+
+#Node class
 class Node:
     def __init__(self, data):
         self.data = data
@@ -87,10 +90,10 @@ def runLinkedListQueue(arr):
         else:
             test.dequeue()
 
-#Generates a list of 1000 random tasks and puts task in list and returns the random task list to user
+#3) Generates a list of 10000 random tasks and puts each task in a list and returns the list to user
 def generateRandomTasks():
-    # Dequeue = 0, Enqueue = 1
-    NUM_OF_TASKS = 1000
+    # 0 means Push, 1 means Pop
+    NUM_OF_TASKS = 10000
     tasks = [0] * 7 + [1] * 3
     randomTasks = []
 
@@ -99,3 +102,16 @@ def generateRandomTasks():
         randomTasks.append(tasks[index])
 
     return randomTasks
+
+#4) #Set up for testing
+ITERATIONS = 100
+arrayStackTime = []
+linkedListStackTime = []
+
+#Doesn't use repeat cause we don't want to consider the amount of time it takes to generate the random tasks
+for i in range(ITERATIONS):
+    randomTasks = generateRandomTasks()
+    arrayStackTime.append()
+    linkedListStackTime.append()
+
+#5)
