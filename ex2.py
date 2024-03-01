@@ -1,13 +1,15 @@
 import random
 import timeit
 from matplotlib import pyplot as plt
-#First Priority Queue Class
+
+#1) First Priority Queue Class (uses merge sort after it appends an element to tail of queue)
 class SortPriorityQueue:
     def __init__(self, arr):
         self.arr = arr
 
     def enqueue(self, data):
-        self.arr.insert(len(self.arr) - 1, data)
+        #Adds new element to the tail of the queue and then sorts it right after
+        self.arr.append(data)
         mergeSort(self.arr, 0, len(self.arr) - 1)
 
     def dequeue(self):
@@ -15,13 +17,14 @@ class SortPriorityQueue:
         if(len(self.arr) == 0):
             return None
         
+        #Pops and returns value at the beginning of the queue
         return self.arr.pop(0)
     
+    #Helper Print Method
     def myPrint(self):
         print(self.arr)
 
-
-#Second Priority Queue Class
+#2) Second Priority Queue Class (inserts value directly to the queue to ensure it is sorted at all times)
 class InsertPriorityQueue:
     def __init__(self, arr):
         self.arr = arr
@@ -29,7 +32,7 @@ class InsertPriorityQueue:
     def enqueue(self, data):
         pos = 0
 
-        #Finds the position to insert the element on queue
+        #Finds the position to insert the element to queue to keep queue sorted
         for i in range(len(self.arr)):
             if(self.arr[i] > data):
                 break
@@ -41,7 +44,7 @@ class InsertPriorityQueue:
         #If it is empty, return None
         if(len(self.arr) == 0):
             return None
-        
+        #Pops and returns value at the beginning of the queue
         return self.arr.pop(0)
     
     def myPrint(self):
@@ -84,9 +87,10 @@ def merge(arr, low, mid, high):
         j += 1
         k += 1
 
-#Generates a list of 1000 random tasks and puts task in list and returns the random task list to user
+#3) Generates a list of 1000 random tasks and puts task in a list and returns the random tasks to user
 def generateRandomTasks():
-    # Dequeue = 0, Enqueue = 1
+    # 0 means Enqueue, 1 means Dequeue. 
+    # Therefore 70% of time it will enqueue, and 30% it will dequeue
     NUM_OF_TASKS = 1000
     tasks = [0] * 7 + [1] * 3
     randomTasks = []
@@ -97,40 +101,50 @@ def generateRandomTasks():
 
     return randomTasks
 
+#4)
 def performanceTestSort(randomTasks):
     sortQueue = SortPriorityQueue([])
-    for i, queue in enumerate(randomTasks):
+    for queue in randomTasks:
         if (queue == 0):
-            sortQueue.enqueue(i + 1)
+            sortQueue.enqueue(random.randint(0, 2000))
         else:
             sortQueue.dequeue()
 
 def performanceTestInsert(randomTasks):
     insertQueue = InsertPriorityQueue([])
-    for i, queue in enumerate(randomTasks):
+    for queue in randomTasks:
         if (queue == 0):
-            insertQueue.enqueue(i + 1)
+            insertQueue.enqueue(random.randint(0, 2000))
         else:
             insertQueue.dequeue()
 
-#Main
+#Set up for testing
+ITERATIONS = 100
 sortingQueueTime = []
 insertingQueueTime = []
 
-for i in range(100):
+#Timing Performance for each iteration
+for i in range(ITERATIONS):
     randomTasks = generateRandomTasks()
     sortingQueueTime.append(timeit.timeit(lambda: performanceTestSort(randomTasks), number=1))
     insertingQueueTime.append(timeit.timeit(lambda: performanceTestInsert(randomTasks), number=1))
 
-print("Sorting Queue: ",sortingQueueTime)
-print("Inserting Queue: ", insertingQueueTime)
+#Prints out result
+print("Sorting Queue: ")
+print(sortingQueueTime)
+print("Inserting Queue: ")
+print(insertingQueueTime)
 
-plt.scatter([i + 1 for i in range(100)], sortingQueueTime, label='Sort Queue')
-plt.scatter([i + 1 for i in range(100)], insertingQueueTime, label='Insert Queue')
-plt.legend()
+#Shows a scatter plot for better visualization of the performance doing random tasks
+plt.scatter([i + 1 for i in range(ITERATIONS)], sortingQueueTime, label='Sort Queue')
+plt.scatter([i + 1 for i in range(ITERATIONS)], insertingQueueTime, label='Insert Queue')
+plt.title(label='Timing for Queues with 1000 random Tasks (Append & Sort vs Insert In Correct Spot)')
+plt.xlabel('Iteration')
+plt.ylabel('Time (s)')
+plt.legend(loc='upper left')
 plt.show()
 
-#5) Clearly, inserting it in the correct position is way faster than sorting the whole list after appending the element to the end
-#   of the list everytime. To merge sort the array every time after it appends to the end has a O(nlog(n)) complexity while
-#   inserting it in the correct position has a O(n) complexity. As long as the queue has more than 10 elements, inserting it in the 
-#   correct position will always be faster than sorting it after every append.
+#5) Clearly, inserting a new element to the correct position is way faster than sorting the whole queue after appending the element to the end
+#   of the queue everytime. To merge sort the array every time after it appends to the end has an O(nlog(n)) complexity while
+#   inserting it in the correct position has an O(n) complexity. As long as the queue has more than 10 elements, inserting it in the 
+#   correct position will always be faster than sorting it after every tail appending.
