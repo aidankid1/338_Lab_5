@@ -9,6 +9,9 @@ class ArrayStack:
         self.top = -1
 
     #Appends an element to the tail
+    #Assignment does not specify to check if array is full before appending
+    #Hence it was not done here. Additionally, Arrays in python automatically
+    #Handles appending to an array has no more space left. 
     def push(self, data):
         self.top += 1
         self.arr.append(data)
